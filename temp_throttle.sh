@@ -68,7 +68,7 @@ fi
 FREQ_LIST_LEN=$(echo $FREQ_LIST | wc -w)
 
 # CURRENT_FREQ will save the index of the currently used frequency in FREQ_LIST.
-CURRENT_FREQ=FREQ_LIST_LEN/2
+CURRENT_FREQ=$((FREQ_LIST_LEN/2))
 
 # This is a list of possible locations to read the current system temperature.
 TEMPERATURE_FILES="
