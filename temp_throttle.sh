@@ -2,11 +2,12 @@
 
 # Usage: temp_throttle.sh max_temp
 # USE CELSIUS TEMPERATURES.
-# version 2.21
+# version 2.22-grd
 
 cat << EOF
 Author: Sepero 2016 (sepero 111 @ gmx . com)
-URL: http://github.com/Sepero/temp-throttle/
+Fork: GRD
+URL: http://github.com/gustrd/temp-throttle/
 
 EOF
 
@@ -39,7 +40,7 @@ fi
 ### START Initialize Global variables.
 
 # The frequency will increase when low temperature is reached.
-LOW_TEMP=$((MAX_TEMP - 5))
+LOW_TEMP=$((MAX_TEMP - 3))
 
 CORES=$(nproc) # Get number of CPU cores.
 echo -e "Number of CPU cores detected: $CORES\n"
@@ -67,7 +68,7 @@ fi
 FREQ_LIST_LEN=$(echo $FREQ_LIST | wc -w)
 
 # CURRENT_FREQ will save the index of the currently used frequency in FREQ_LIST.
-CURRENT_FREQ=2
+CURRENT_FREQ=FREQ_LIST_LEN/2
 
 # This is a list of possible locations to read the current system temperature.
 TEMPERATURE_FILES="
@@ -139,7 +140,7 @@ get_temp () {
 
 ### END define script functions.
 
-echo "Initialize to max CPU frequency"
+echo "Initialize to average CPU frequency"
 unthrottle
 
 
@@ -151,5 +152,5 @@ while true; do
 	elif [ $TEMP -le $LOW_TEMP ]; then # Unthrottle if cool.
 		unthrottle
 	fi
-	sleep 3 # The amount of time between checking temperatures.
+	sleep 1 # The amount of time between checking temperatures.
 done
